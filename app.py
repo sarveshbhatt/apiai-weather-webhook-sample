@@ -42,7 +42,7 @@ def processRequest(req):
     phone = makeYqlQuery(req)
     if phone is None:
         return {}
-      res = makeWebhookResult(phone)
+    res = makeWebhookResult(phone)
     return res
 
 
