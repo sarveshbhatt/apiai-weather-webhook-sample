@@ -38,14 +38,10 @@ def webhook():
 def processRequest(req):
     if req.get("result").get("action") != "getTMOBalance":
         return {}
-    baseurl = "https://query.t-mobile.com/v1/public/yql?"
+   # baseurl = "https://query.t-mobile.com/v1/public/yql?"
     phone = makeYqlQuery(req)
     if phone is None:
         return {}
-#yql_url = baseurl + urlencode({'q': phone}) + "&format=json"
-     #    result = urlopen(yql_url).read()
-   #  data = json.loads(result)
-   # res = makeWebhookResult(data)
       res = makeWebhookResult(phone)
     return res
 
@@ -61,35 +57,8 @@ def makeYqlQuery(req):
 
 
 def makeWebhookResult(data):
-   # query = data.get('query')
-   # if query is None:
- #       return {}
-
-  #  result = query.get('results')
-  #  if result is None:
-   #     return {}
-
-#    channel = result.get('channel')
-  #  if channel is None:
-  #      return {}
-
- #   item = channel.get('item')
-  #  location = channel.get('location')
-    #units = channel.get('units')
-    #if (location is None) or (item is None) or (units is None):
-    #    return {}
-
-   # condition = item.get('condition')
-  #  if condition is None:
-  #      return {}
-
-    # print(json.dumps(item, indent=4))
-    
+     
     speech = "Current balance of your phone " + data + ": is $200" 
-
-   # speech = "Today in " + location.get('city') + ": " + condition.get('text') + \
-      #       ", the temperature is " + condition.get('temp') + " " + units.get('temperature')
-
     print("Response:")
     print(speech)
 
@@ -103,7 +72,7 @@ def makeWebhookResult(data):
 
 
 if __name__ == '__main__':
-    port = int(os.getenv('PORT', 5000))
+    port = int(os.getenv('PORT', 5002))
 
     print("Starting app on port %d" % port)
 
