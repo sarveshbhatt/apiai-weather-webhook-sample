@@ -36,56 +36,59 @@ def webhook():
 
 
 def processRequest(req):
-    if req.get("result").get("action") != "yahooWeatherForecast":
+    if req.get("result").get("action") != "getTMOBalance":
         return {}
-    baseurl = "https://query.yahooapis.com/v1/public/yql?"
-    yql_query = makeYqlQuery(req)
-    if yql_query is None:
+    baseurl = "https://query.t-mobile.com/v1/public/yql?"
+    phone = makeYqlQuery(req)
+    if phone is None:
         return {}
-    yql_url = baseurl + urlencode({'q': yql_query}) + "&format=json"
-    result = urlopen(yql_url).read()
-    data = json.loads(result)
-    res = makeWebhookResult(data)
+#yql_url = baseurl + urlencode({'q': phone}) + "&format=json"
+     #    result = urlopen(yql_url).read()
+   #  data = json.loads(result)
+   # res = makeWebhookResult(data)
+      res = makeWebhookResult(phone)
     return res
 
 
 def makeYqlQuery(req):
     result = req.get("result")
     parameters = result.get("parameters")
-    city = parameters.get("geo-city")
-    if city is None:
+    msisdn = parameters.get("phone-number")
+    if msisdn is None:
         return None
 
-    return "select * from weather.forecast where woeid in (select woeid from geo.places(1) where text='" + city + "')"
+    return msisdn
 
 
 def makeWebhookResult(data):
-    query = data.get('query')
-    if query is None:
-        return {}
+   # query = data.get('query')
+   # if query is None:
+ #       return {}
 
-    result = query.get('results')
-    if result is None:
-        return {}
+  #  result = query.get('results')
+  #  if result is None:
+   #     return {}
 
-    channel = result.get('channel')
-    if channel is None:
-        return {}
+#    channel = result.get('channel')
+  #  if channel is None:
+  #      return {}
 
-    item = channel.get('item')
-    location = channel.get('location')
-    units = channel.get('units')
-    if (location is None) or (item is None) or (units is None):
-        return {}
+ #   item = channel.get('item')
+  #  location = channel.get('location')
+    #units = channel.get('units')
+    #if (location is None) or (item is None) or (units is None):
+    #    return {}
 
-    condition = item.get('condition')
-    if condition is None:
-        return {}
+   # condition = item.get('condition')
+  #  if condition is None:
+  #      return {}
 
     # print(json.dumps(item, indent=4))
+    
+    speech = "Current balance of your phone " + data + ": is $200" 
 
-    speech = "Today in " + location.get('city') + ": " + condition.get('text') + \
-             ", the temperature is " + condition.get('temp') + " " + units.get('temperature')
+   # speech = "Today in " + location.get('city') + ": " + condition.get('text') + \
+      #       ", the temperature is " + condition.get('temp') + " " + units.get('temperature')
 
     print("Response:")
     print(speech)
