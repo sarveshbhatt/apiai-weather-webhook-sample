@@ -57,8 +57,8 @@ def makeYqlQuery(req):
 
 
 def makeWebhookResult(data):
-     balance =200
-        balance =balance+20
+    balance =200
+    balance =balance+20
     speech = "Current balance of your phone " + data + ": is $"+balance 
     print("Response:")
     print(speech)
