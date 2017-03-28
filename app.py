@@ -58,7 +58,7 @@ def makeYqlQuery(req):
 
 def makeWebhookResult(data):
      
-    speech = "Current balance of your phone " + data + ": is $200" 
+    speech = "Current balance of your phone " + data + ": is $"+ random.randint(40,100) 
     print("Response:")
     print(speech)
 
