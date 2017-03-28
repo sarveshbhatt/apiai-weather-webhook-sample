@@ -10,7 +10,7 @@ from urllib.error import HTTPError
 
 import json
 import os
-import random
+
 from flask import Flask
 from flask import request
 from flask import make_response
@@ -57,8 +57,9 @@ def makeYqlQuery(req):
 
 
 def makeWebhookResult(data):
-     
-    speech = "Current balance of your phone " + data + ": is $"+ random.randint(40,100) 
+     balance =200
+        balance =balance+20
+    speech = "Current balance of your phone " + data + ": is $"+balance 
     print("Response:")
     print(speech)
 
