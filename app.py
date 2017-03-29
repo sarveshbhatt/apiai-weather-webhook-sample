@@ -57,12 +57,15 @@ def makeYqlQuery(req):
 
 
 def makeWebhookResult(data):
+    # data="4257709607"
+    phone = re.sub(r'\D', '', data)
+    phone = phone.lstrip('1')
+    phone= '{}-{}-{}'.format(phone[0:3], phone[3:6], phone[6:])
     balance =200
     balance =balance+20
-    speech = "Current balance of your phone " + data + ": is $"+balance 
+    speech = "Current balance of your phone " + phone + ": is "+'${:,.2f}'.format(balance)
     print("Response:")
     print(speech)
-
     return {
         "speech": speech,
         "displayText": speech,
