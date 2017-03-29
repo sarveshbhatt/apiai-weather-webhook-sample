@@ -11,6 +11,7 @@ from urllib.error import HTTPError
 import json
 import os
 import re
+import random
 from flask import Flask
 from flask import request
 from flask import make_response
@@ -61,8 +62,7 @@ def makeWebhookResult(data):
     phone = re.sub(r'\D', '', data)
     phone = phone.lstrip('1')
     phone= '{}-{}-{}'.format(phone[0:3], phone[3:6], phone[6:])
-    balance =200
-    balance =balance+20
+    balance =random.randint(200,900)
     speech = "Current balance of your phone " + phone + ": is "+'${:,.2f}'.format(balance)
     print("Response:")
     print(speech)
