@@ -43,6 +43,7 @@ def processRequest(req):
     phone = makeYqlQuery(req)
     pin = makeYqlPinQuery(req)
     if pin is None:
+        print("pin is none")
         respin=makeWebhookPinResult(pin)
         return respin
     if phone is None:
@@ -52,17 +53,21 @@ def processRequest(req):
 
 
 def makeYqlQuery(req):
+    print("makeYqlQuery")
     result = req.get("result")
     parameters = result.get("parameters")
     msisdn = parameters.get("phone-number")
+    print("msisdn"+msisdn)
     if msisdn is None:
         return None
     return msisdn
 
 def makeYqlPinQuery(req):
+    print("makeYqlPinQuery")
     result1 = req.get("result")
     parameters1 = result1.get("parameters")
     pin = parameters1.get("duration")
+    print("pin>>"+pin)
     if pin is None:
         return None
     return pin
