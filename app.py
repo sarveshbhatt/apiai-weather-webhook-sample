@@ -68,7 +68,7 @@ def makeYqlPinQuery(req):
     return pin
 
 def makeWebhookPinResult(data):
-    speech = "Please tell me the pin of youe account "
+    speech = "Please tell me the pin of your account"
     print("Response:")
     print(speech)
     return {
