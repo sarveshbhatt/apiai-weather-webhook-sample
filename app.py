@@ -41,6 +41,7 @@ def processRequest(req):
         return {}
    # baseurl = "https://query.t-mobile.com/v1/public/yql?"
     phone = makeYqlQuery(req)
+    pin = makeYqlPinQuery(req)
     if phone is None:
         return {}
     res = makeWebhookResult(phone)
@@ -53,8 +54,25 @@ def makeYqlQuery(req):
     msisdn = parameters.get("phone-number")
     if msisdn is None:
         return None
-
     return msisdn
+
+def makeYqlPinQuery(req):
+    result1 = req.get("result")
+    parameters1 = result1.get("parameters")
+    pin = parameters1.get("duration")
+    if pin is None:
+            speech = "Current balance of your phone " + phone + ": is "+'${:,.2f}'.format(balance)
+            print("Response:")
+            print(speech)
+            return {
+                "speech": speech,
+                "displayText": speech,
+                # "data": data,
+                # "contextOut": [],
+                "source": "apiai-weather-webhook-sample"
+            }
+    
+    return pin
 
 
 def makeWebhookResult(data):
