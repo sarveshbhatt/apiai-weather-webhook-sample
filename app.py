@@ -41,9 +41,9 @@ def processRequest(req):
         return {}
    # baseurl = "https://query.t-mobile.com/v1/public/yql?"
     phone = makeYqlQuery(req)
-    if pin is "pin":
+    if phone is "pin":
         print("pin is none")
-        respin=makeWebhookPinResult(pin)
+        respin=makeWebhookPinResult(phone)
         return respin
     if phone is None:
         return {}
